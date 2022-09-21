@@ -28,3 +28,14 @@
 
 * ./target/debug/hello_cargo : also run the code via the target folder created by cargo
 
+## 2. Programming a Guessing Game
+
+`let mut guess =  String::from("Lelo "); `
+`let mut guess_2 =  String::new(); `
+`io::stdin().read_line(&mut guess).expect("Failed to read line");`
+
+> read_line is to take whatever the user types into standard input and append that into a string (without overwriting its contents)
+
+> Build the project after adding a new dependency cargo.toml to install crate package 
+
+
