@@ -235,9 +235,19 @@
 
       ![Integers](/Ownership/definition/stack-heap-4.PNG)
 
-      *which is what memory would look like if Rust instead copied the heap data as well. If Rust did this, the operation s2 = s1 could be very expensive in terms of runtime performance if the data on the heap were large*
+      * which is what memory would look like if Rust instead copied the heap data as well. If Rust did this, the operation s2 = s1 could be very expensive in terms of runtime performance if the data on the heap were large*
+
+      Mutating s1 or s2 would not affect the other, as they are two different data in the heap, each having its own reference object in the Stack. 
   
   #### 4.1.2 Ownership and Functions
+
+  >   The mechanics of passing a value to a function are similar to those when assigning a value to a variable. Passing a variable to a function will move or copy, just as assignment does.
+
+  >   The ownership of a variable follows the same pattern every time: assigning a value to another variable moves it. When a variable that includes data on the heap goes out of scope, the value will be cleaned up by drop unless ownership of the data has been moved to another variable.
+
+  >   While this works, taking ownership and then returning ownership with every function is a bit tedious. What if we want to let a function use a value but not take ownership? It’s quite annoying that anything we pass in also needs to be passed back if we want to use it again, in addition to any data resulting from the body of the function that we might want to return as well.
+
+  >   But this is too much ceremony and a lot of work for a concept that should be common. Luckily for us, Rust has a feature for using a value without transferring ownership, called references
 
   ### 4.2. References and Borrowing
   ### 4.3. The Slice Type
