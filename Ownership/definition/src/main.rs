@@ -48,8 +48,8 @@ fn main() {
   // 2. ****** Ways Variables and Data Interact: Move ******
     /*
       The data type is growable and stored in the Heap.
-      it is referenced in the stack by the address, capacity and length.
-      When we make a move or copy, we are actually making a copy of the representation(reference)
+      it is pointing to the Head, from stack with pointer(address) capacity and length.
+      When we make a move or copy, we are actually making a copy of the representation
       in the stack
     */
 
