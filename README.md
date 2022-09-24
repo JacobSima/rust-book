@@ -250,10 +250,7 @@
   >   But this is too much ceremony and a lot of work for a concept that should be common. Luckily for us, Rust has a feature for using a value without transferring ownership, called references
 
   ### 4.2. References and Borrowing
-    > A reference is like a pointer in that it’s an address we can follow to access 
-    the data stored at that address; that data is owned by some other variable. 
-    Unlike a pointer, a reference is guaranteed to point to a valid value of a particular 
-    type for the life of that reference.
+  > A reference is like a pointer in that it’s an address we can follow to access the data stored at that address; that data is owned by some other variable. Unlike a pointer, a reference is guaranteed to point to a valid value of a particular type for the life of that reference.
 
   ![Integers](/Ownership/reference_borrowing/reference-borrow.PNG)
 
