@@ -255,4 +255,194 @@
   ![Integers](/Ownership/reference_borrowing/reference-borrow.PNG)
 
   * For more please check folder Common Programming Understanding Ownership, References and Borrowing
+
+## 7. Managing Growing Projects with Packages, Crates, and Modules
+
+* Packages: A Cargo feature that lets you build, test, and share crates
+
+* Crates: A tree of modules that produces a library or executable
+
+* Modules and use: Let you control the organization, scope, and privacy of paths
+
+* Paths: A way of naming an item, such as a struct, function, or module
+
+### 7.1. Packages and Crates
+
+* Crate:  is the smallest amount of code that the Rust compiler considers at a time
+
+  >    Binary crates are programs you can compile to an executable that you can run, such as a command-line program or a server. Each must have a function called main that defines what happens when the executable runs
+
+  >   Library crates don’t have a main function, and they don’t compile to an executable. Instead, they define functionality intended to be shared with multiple projects. For example, the rand. Most of the time when Rustaceans say “crate”, they mean library crate.
+
+  >   The crate root is a source file that the Rust compiler starts from and makes up the root module of your crate
+
+* Package: is a bundle of one or more crates that provides a set of functionality. A package contains a Cargo.toml file that describes how to build those crates
+
+  > The Cargo package also contains a library crate that the binary crate depends on
+
+  > A package can contain as many binary crates as you like, but at most only one library crate. A package must contain at least one crate, whether that’s a library or binary crate.
+
+* Create a Cargo package:
+
+    cargo new my-project = create package within new directory my-project
+
+    cargo init = create package in the current directory
+
+    `$ cargo new my-project`
+
+      `Created binary (application) my-project package`
+
+    `$ ls my-project`
+
+    `Cargo.toml`
+
+    `src`
+
+  ` $ ls my-project/src`
+  
+    `main.rs`
+
+  src/main.rs will be for binary crate by convention
+
+  src/lib.rs willbe for library crate convention
+
+  If a package contains src/main.rs and src/lib.rs, it has two crates: a binary and a library,
+
+  **NB : A package can have multiple binary crates by placing files in the src/bin directory: each file will be a separate binary crate.**
+
+
+### 7.2. Module
+
+  * Start from the crate root
+
+    >   When compiling a crate, the compiler first looks in the crate root file (usually src/lib.rs for a library crate or src/main.rs for a binary crate) for code to compile.
+
+  * Declaring modules
+
+      In the crate root file, you can declare new modules; say, you declare a “garden” module with mod garden;. The compiler will look for the module’s code in these places:
+
+      >  Inline, within curly brackets that replace the semicolon following mod garden
+
+      >  In the file src/garden.rs
+  
+      >  In the file src/garden/mod.rs
+  
+  * Declaring submodules
+
+      In any file other than the crate root, you can declare submodules. For example, you might declare mod vegetables; in src/garden.rs. The compiler will look for the submodule’s code within the directory named for the parent module in these places
+
+      >  Inline, directly following mod vegetables, within curly brackets instead of the semicolon
+
+      >  In the file src/garden/vegetables.rs
+
+      >  In the file src/garden/vegetables/mod.rs
+  
+  * Paths to code in modules
+
+      Once a module is part of your crate, you can refer to code in that module from anywhere else in that same crate
+
+      `crate::garden::vegetables::Asparagus`
+  
+  * Private vs public
+
+    > Code within a module is private from its parent modules by default. To make a module public, declare it with pub mod instead of mod. To make items within a public module public as well, use pub before their declarations
+
+  * The use keyword
+
+    >  Within a scope, the use keyword creates shortcuts to items to reduce repetition of long paths
+
+      `use crate::garden::vegetables::Asparagus;`
+
+      `pub mod garden;`
+
+      `fn main() {`
+
+      `let plant = Asparagus {};`
+
+      `println!("I'm growing {:?}!", plant);`
+
+      `}`
+  * Grouping Related Code in Modules
+
+    `mod front_of_house {`
+
+    `mod hosting {`
+
+      `fn add_to_waitlist() {}`
+
+    `}`
+
+    `mod serving {`
+
+      `fn take_order() {}`
+
+      ` fn serve_order() {}`
+
+    `}`
+
+    `}`
+### 7.3. Paths for Referring to an Item in the Module Tree
+
+  * An absolute path
+
+    is the full path starting from a crate root, it starts with the literal crate
+  
+  * A relative path
+
+    starts from the current module and uses self, super, or an identifier in the current module
+
+  
+  Both absolute and relative paths are followed by one or more identifiers separated by double colons (::).
+
+  `mod front_of_house {`
+
+    `pub mod hosting {`
+
+      `pub fn add_to_waitlist() {}`
+
+    `}`
+
+  `}`
+
+    // use crate::front_of_house::hosting;        // Creating Idiomatic use Paths
+    // use std::io::Result as IoResult;            // Providing New Names with the as Keyword
+    // pub use crate::front_of_house::hosting;    // Re-exporting Names with pub use
+
+  `pub fn eat_at_restaurant() {`  
+
+    `crate::front_of_house::hosting::add_to_waitlist();  // Absolute path`
+
+    `front_of_house::hosting::add_to_waitlist();         // Relative path`
+
+    `super::front_of_house::hosting::add_to_waitlist()   //  Starting Relative Paths with super`
+
+  `}`
+
+
+* Using External Packages
+
+  `use rand::Rng;`
+
+  `fn main() {`
+
+    `let secret_number = rand::thread_rng().gen_range(1..=100);`
+
+  `}`
+  
+* Using Nested Paths to Clean Up Large use Lists
+
+  `use std::{cmp::Ordering, io};`
+
+  `use std::io;`
+
+  `use std::io::Write;`
+  
+  `use std::io::{self, Write};    // This line brings std::io and std::io::Write into scope.`      
+
+* The Glob Operator
+
+  `use std::collections::*;`
+
+
+
   
