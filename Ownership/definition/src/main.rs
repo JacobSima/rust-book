@@ -3,8 +3,7 @@ fn main() {
 
   // 1. ****** Stack-Only Data: Copy ******
       /*
-          The copy is possible as these data-types are fixed value and their type are known during 
-          during the compiler time.
+          The copy is possible as these data-types are fixed value and their type are known during the compiler time.
           They are stored in on Stack during program execution.
       */
 
@@ -48,7 +47,7 @@ fn main() {
   // 2. ****** Ways Variables and Data Interact: Move ******
     /*
       The data type is growable and stored in the Heap.
-      it is pointing to the Head, from stack with pointer(address) capacity and length.
+      it is pointing to the Heap, from stack with pointer(address) capacity and length.
       When we make a move or copy, we are actually making a copy of the representation
       in the stack
     */
